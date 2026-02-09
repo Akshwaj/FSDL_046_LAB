@@ -7,7 +7,9 @@ form.addEventListener("submit", function(e) {
 
     const name = document.getElementById("name").value.trim();
     const email = document.getElementById("email").value.trim();
+    const age = document.getElementById("age").value.trim();
     const password = document.getElementById("password").value.trim();
+    const confirmPassword = document.getElementById("confirmPassword").value.trim();
     const phone = document.getElementById("phone").value.trim();
 
     document.querySelectorAll(".error").forEach(el => el.textContent = "");
@@ -26,9 +28,21 @@ form.addEventListener("submit", function(e) {
         valid = false;
     }
 
+    // Age validation
+    if (age === "" || isNaN(age) || age < 18 || age > 60) {
+        document.getElementById("ageError").textContent = "Age must be between 18 and 60";
+        valid = false;
+    }
+
     // Password validation
     if (password.length < 6) {
-        document.getElementById("passError").textContent = "Password must be 6+ characters";
+        document.getElementById("passError").textContent = "Password must be at least 6 characters";
+        valid = false;
+    }
+
+    // Confirm password validation
+    if (confirmPassword !== password || confirmPassword === "") {
+        document.getElementById("confirmError").textContent = "Passwords do not match";
         valid = false;
     }
 
